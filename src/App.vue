@@ -3,19 +3,19 @@
     <v-app-bar app color="primary" dark>Title</v-app-bar>
 
     <v-main>
-      <HomeView></HomeView>
+      <WebkitView></WebkitView>
     </v-main>
   </v-app>
 </template>
 
 <script>
-import HomeView from "./views/GoogleView";
+import WebkitView from "@/views/WebkitView";
 
 export default {
   name: 'App',
 
   components: {
-    HomeView,
+    WebkitView,
   },
 
   data: () => ({
