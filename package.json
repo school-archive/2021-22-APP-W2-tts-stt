@@ -11,6 +11,7 @@
     "@google-cloud/speech": "^4.9.0",
     "axios": "^0.23.0",
     "core-js": "^3.6.5",
+    "ibm-watson": "^6.2.1",
     "mic-recorder-to-mp3": "^2.2.2",
     "vue": "^2.6.11",
     "vue-axios": "^3.3.7",
