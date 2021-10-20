@@ -1,16 +1,20 @@
 <template>
   <div>
     <v-row>
-      <v-col sm="3">
+      <v-col sm="4">
         <v-card>
           <v-card-title>Speech to text</v-card-title>
-          <v-card-text>
-            <v-text-field
+          <v-text-field
+              label="Language"
+              filled
+              :value="sttLang"
+          />
+          <v-text-field
               label="Result"
               disabled
+              filled
               :value="sttResult"
-              />
-          </v-card-text>
+          />
           <v-card-actions>
             <v-btn
                 text
@@ -23,19 +27,32 @@
         </v-card>
       </v-col>
 
-      <v-col sm="3">
+      <v-col sm="2">
+        <v-btn @click="translateText">
+          Translate
+          <v-icon>mdi-arrow-right</v-icon>
+        </v-btn>
+      </v-col>
+
+      <v-col sm="4">
         <v-card>
           <v-card-title>Text to speech</v-card-title>
-
+          <v-text-field
+              label="Language"
+                        filled
+                        v-model="selectedTtsLang"/>
           <v-text-field
               label="Text"
               hide-details="auto"
+              filled
+              v-model="ttsText"
           ></v-text-field>
           <v-card-actions>
             <v-btn
                 class="ml-auto"
                 icon
                 color="accent-4"
+                @click="speakText()"
             >
               <v-icon>mdi-play</v-icon>
             </v-btn>
@@ -54,7 +71,10 @@ export default {
     speechRecognitionList: null,
     lang: 'de-DE',
     sttResult: null,
+    sttLang: 'de-DE',
     isRecognising: false,
+    selectedTtsLang: 'de-DE',
+    ttsText: "",
   }),
   mounted() {
     let SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
@@ -104,6 +124,17 @@ export default {
       this.recognition.start();
       this.isRecognising = true;
       console.log('Ready to receive a command.');
+    },
+
+    speakText(text, lang=this.selectedTtsLang) {
+      let utterance = new window.SpeechSynthesisUtterance(text);
+      utterance.lang = lang;
+      window.speechSynthesis.speak(utterance);
+      console.log("started to speak")
+    },
+    translateText(text=this.sttResult, srcLang=this.sttLang, targetLang=this.selectedTtsLang) {
+      console.log(srcLang, targetLang, text)
+      this.ttsText = this.sttResult;
     }
   }
 }
