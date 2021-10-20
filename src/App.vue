@@ -3,19 +3,19 @@
     <v-app-bar app color="primary" dark>Title</v-app-bar>
 
     <v-main>
-      <WatsonView></WatsonView>
+      <WebkitView></WebkitView>
     </v-main>
   </v-app>
 </template>
 
 <script>
-import WatsonView from "./views/WatsonView";
+import WebkitView from "@/views/WebkitView";
 
 export default {
   name: 'App',
 
   components: {
-    WatsonView,
+    WebkitView,
   },
 
   data: () => ({
