@@ -65,16 +65,18 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "WebkitView",
   data: () => ({
     recognition: null,
     speechRecognitionList: null,
-    lang: 'de-DE',
-    sttResult: null,
-    sttLang: 'de-DE',
+    lang: 'de',
+    sttResult: '',
+    sttLang: 'de',
     isRecognising: false,
-    selectedTtsLang: 'de-DE',
+    selectedTtsLang: 'en',
     ttsText: "",
   }),
   mounted() {
@@ -127,7 +129,7 @@ export default {
       console.log('Ready to receive a command.');
     },
 
-    speakText(text, lang=this.selectedTtsLang) {
+    speakText(text=this.ttsText, lang=this.selectedTtsLang) {
       let utterance = new window.SpeechSynthesisUtterance(text);
       utterance.lang = lang;
       window.speechSynthesis.speak(utterance);
@@ -135,7 +137,42 @@ export default {
     },
     translateText(text=this.sttResult, srcLang=this.sttLang, targetLang=this.selectedTtsLang) {
       console.log(srcLang, targetLang, text)
-      this.ttsText = this.sttResult;
+      // axios.post('https://google-translate1.p.rapidapi.com/language/translate/v2',
+      //     {
+      //       q: text,
+      //       target: 'en',
+      //       source: 'de'
+      //     },
+      //     {
+      //       headers: {
+      //         'Content-Type': 'application/x-www-form-urlencoded',
+      //         // 'Accept-Encoding': 'application/gzip',
+      //         'x-rapidapi-host': 'google-translate1.p.rapidapi.com',
+      //         'x-rapidapi-key': 'ae4205d3c9mshc1c3840266dedfcp140177jsn23d76fa8bd27'
+      //       }
+      //     })
+      // .then(res => this.ttsText = res.data.data.translations.translatedText)
+      // .catch(err => console.error(err));
+
+      const options = {
+        method: 'POST',
+        url: 'https://deep-translate1.p.rapidapi.com/language/translate/v2',
+        headers: {
+          'content-type': 'application/json',
+          'x-rapidapi-host': 'deep-translate1.p.rapidapi.com',
+          'x-rapidapi-key': 'ae4205d3c9mshc1c3840266dedfcp140177jsn23d76fa8bd27'
+        },
+        data: {q: this.sttResult, source: srcLang, target: targetLang}
+      };
+
+      axios.request(options).then(response => {
+        console.log(response.data);
+        this.ttsText = response.data.data.translations.translatedText;
+      }).catch(function (error) {
+        console.error(error);
+      });
+
+      // this.ttsText = this.sttResult;
     }
   }
 }
