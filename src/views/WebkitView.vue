@@ -29,7 +29,7 @@
         </v-card>
       </v-col>
 
-      <v-col sm="2">
+      <v-col sm="2" class="d-flex flex-row justify-center">
         <v-btn @click="translateText">
           Translate
           <v-icon>mdi-arrow-right</v-icon>
