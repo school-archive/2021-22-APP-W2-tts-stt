@@ -1,6 +1,7 @@
 <template>
   <div>
-    <v-row>
+    <v-row align="center">
+      <v-col sm="1"/>
       <v-col sm="4">
         <v-card>
           <v-card-title>Speech to text</v-card-title>
