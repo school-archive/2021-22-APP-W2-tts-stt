@@ -49,6 +49,22 @@
               filled
               v-model="ttsText"
           ></v-text-field>
+          <v-slider
+              class="px-5 py-2"
+              label="Speed"
+              :step="0.1"
+              v-model="speed"
+              max="4"
+              min=".2"
+          ></v-slider>
+          <v-slider
+              class="px-5"
+              label="Pitch"
+              :step="0.1"
+              v-model="pitch"
+              max="4"
+              min=".2"
+          ></v-slider>
           <v-card-actions>
             <v-btn
                 class="ml-auto"
@@ -79,6 +95,8 @@ export default {
     isRecognising: false,
     selectedTtsLang: 'en',
     ttsText: "",
+    speed: 1,
+    pitch: 1,
   }),
   mounted() {
     let SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
@@ -133,6 +151,8 @@ export default {
     speakText(text=this.ttsText, lang=this.selectedTtsLang) {
       let utterance = new window.SpeechSynthesisUtterance(text);
       utterance.lang = lang;
+      utterance.rate = this.speed;
+      utterance.pitch = this.pitch;
       window.speechSynthesis.speak(utterance);
       console.log("started to speak")
     },
@@ -164,6 +184,6 @@ export default {
 
 <style scoped>
 .card {
-  height: 300px;
+  height: 390px;
 }
 </style>
