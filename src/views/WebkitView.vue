@@ -1,9 +1,9 @@
 <template>
   <div>
-    <v-row align="center">
+    <v-row align="center" class="card">
       <v-col sm="1"/>
       <v-col sm="4">
-        <v-card>
+        <v-card class="card">
           <v-card-title><v-icon class="mr-3">mdi-microphone</v-icon>Speech to Text</v-card-title>
           <v-text-field
               label="Language"
@@ -37,7 +37,7 @@
       </v-col>
 
       <v-col sm="4">
-        <v-card>
+        <v-card class="card">
           <v-card-title><v-icon class="mr-3">mdi-message-processing</v-icon>Text to Speech</v-card-title>
           <v-text-field
               label="Language"
@@ -163,5 +163,7 @@ export default {
 </script>
 
 <style scoped>
-
+.card {
+  height: 300px;
+}
 </style>
