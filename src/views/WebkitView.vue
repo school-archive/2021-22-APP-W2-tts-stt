@@ -4,7 +4,7 @@
       <v-col sm="1"/>
       <v-col sm="4">
         <v-card>
-          <v-card-title>Speech to text</v-card-title>
+          <v-card-title><v-icon class="mr-3">mdi-microphone</v-icon>Speech to Text</v-card-title>
           <v-text-field
               label="Language"
               filled
@@ -22,6 +22,7 @@
                 color="teal accent-4"
                 @click="isRecognising ? recognition.stop() : startRecognition()"
             >
+              <v-icon class="mr-1">mdi-radiobox-marked</v-icon>
               {{ isRecognising ? 'Stop' : 'Start' }} recognition
             </v-btn>
           </v-card-actions>
@@ -37,7 +38,7 @@
 
       <v-col sm="4">
         <v-card>
-          <v-card-title>Text to speech</v-card-title>
+          <v-card-title><v-icon class="mr-3">mdi-message-processing</v-icon>Text to Speech</v-card-title>
           <v-text-field
               label="Language"
                         filled
@@ -136,23 +137,7 @@ export default {
       console.log("started to speak")
     },
     translateText(text=this.sttResult, srcLang=this.sttLang, targetLang=this.selectedTtsLang) {
-      console.log(srcLang, targetLang, text)
-      // axios.post('https://google-translate1.p.rapidapi.com/language/translate/v2',
-      //     {
-      //       q: text,
-      //       target: 'en',
-      //       source: 'de'
-      //     },
-      //     {
-      //       headers: {
-      //         'Content-Type': 'application/x-www-form-urlencoded',
-      //         // 'Accept-Encoding': 'application/gzip',
-      //         'x-rapidapi-host': 'google-translate1.p.rapidapi.com',
-      //         'x-rapidapi-key': 'ae4205d3c9mshc1c3840266dedfcp140177jsn23d76fa8bd27'
-      //       }
-      //     })
-      // .then(res => this.ttsText = res.data.data.translations.translatedText)
-      // .catch(err => console.error(err));
+      console.log(srcLang, targetLang, text);
 
       const options = {
         method: 'POST',
@@ -172,7 +157,6 @@ export default {
         console.error(error);
       });
 
-      // this.ttsText = this.sttResult;
     }
   }
 }
