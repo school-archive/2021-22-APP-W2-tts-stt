@@ -22,7 +22,7 @@
                 color="teal accent-4"
                 @click="isRecognising ? recognition.stop() : startRecognition()"
             >
-              <v-icon class="mr-1">mdi-radiobox-marked</v-icon>
+              <v-icon class="mr-1">{{isRecognising ? 'mdi-radiobox-marked' : 'mdi-record'}}</v-icon>
               {{ isRecognising ? 'Stop' : 'Start' }} recognition
             </v-btn>
           </v-card-actions>
